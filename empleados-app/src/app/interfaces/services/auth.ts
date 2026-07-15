@@ -8,7 +8,7 @@ export class AuthService {
 
   private http = inject(HttpClient);
 
-  private api = 'http://localhost:3000/api/auth';
+  private api = 'https://gestion-empleados-a69i.onrender.com/api/auth';
 
   login(datos: any) {
     return this.http.post(`${this.api}/login`, datos);

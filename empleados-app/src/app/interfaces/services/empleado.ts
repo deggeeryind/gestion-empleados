@@ -10,7 +10,7 @@ export class EmpleadoService {
 
   private http = inject(HttpClient);
 
-  private api = 'http://localhost:3000/api/empleados';
+  private api = 'https://gestion-empleados-a69i.onrender.com/api/empleados';;
 
   obtenerEmpleados(): Observable<empleado[]>{
 
