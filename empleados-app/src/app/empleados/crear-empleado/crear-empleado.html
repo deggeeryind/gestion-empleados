@@ -1,0 +1,70 @@
+<div class="form-container">
+  <div class="card">
+    <h2>Nuevo Empleado</h2>
+
+    <form (ngSubmit)="guardarEmpleado()">
+      <div class="row">
+        <input
+          type="text"
+          placeholder="Nombre"
+          [(ngModel)]="empleado.nombre"
+          name="nombre"
+          required
+        />
+
+        <input
+          type="text"
+          placeholder="Apellido"
+          [(ngModel)]="empleado.apellido"
+          name="apellido"
+          required
+        />
+      </div>
+
+      <div class="row">
+        <input
+          type="email"
+          placeholder="Correo"
+          [(ngModel)]="empleado.correo"
+          name="correo"
+          required
+        />
+
+        <input
+          type="text"
+          placeholder="Teléfono"
+          [(ngModel)]="empleado.telefono"
+          name="telefono"
+          required
+        />
+      </div>
+
+      <div class="row">
+        <input type="text" placeholder="Cargo" [(ngModel)]="empleado.cargo" name="cargo" required />
+
+        <input
+          type="number"
+          placeholder="Salario"
+          [(ngModel)]="empleado.salario"
+          name="salario"
+          required
+        />
+      </div>
+
+      <div class="row">
+        <input type="date" [(ngModel)]="empleado.fecha_ingreso" name="fecha_ingreso" />
+      </div>
+
+      <button class="guardar" type="submit">
+        <i class="fas fa-floppy-disk"></i>
+
+        Guardar Empleado
+      </button>
+      <button class="volver" type="button" routerLink="/dashboard">
+        <i class="fas fa-arrow-left"></i>
+
+        Volver al Dashboard
+      </button>
+    </form>
+  </div>
+</div>

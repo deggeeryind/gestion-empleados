@@ -1,0 +1,129 @@
+<app-navbar (toggleMenu)="toggleSidebar()"></app-navbar>
+
+<div class="dashboard">
+  <app-sidebar 
+  [abierto]="sidebarAbierto"
+  (logout)="cerrarSesion()">
+</app-sidebar>
+
+  <main class="content">
+    <div class="welcome">
+      <h1>👋 Bienvenido, Dager</h1>
+      <p>Panel principal del Sistema de Gestión de Empleados.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <i class="fas fa-users"></i>
+        <h2>{{ empleados.length }}</h2>
+        <span>Empleados</span>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-user-check"></i>
+        <h2>{{ empleados.length }}</h2>
+        <p>Activos</p>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-money-bill-wave"></i>
+       <h2>{{ totalNomina | currency:'COP ':'symbol':'1.0-0' }}</h2>
+        <p>Nómina</p>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-building"></i>
+        <h2>12</h2>
+        <p>Áreas</p>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <input type="text"
+       placeholder="🔍 Buscar empleado..."
+       [(ngModel)]="textoBusqueda"
+       (input)="buscarEmpleado()"
+       />
+      <button class="btn btn-primary" (click)="abrirModal()">+ Empleado</button>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Cargo</th>
+            <th>Salario</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let empleado of empleadosFiltrados">
+            <td>{{ empleado.nombre }} {{ empleado.apellido }}</td>
+
+            <td>{{ empleado.correo }}</td>
+            <td>{{ empleado.telefono }}</td>
+            <td>{{ empleado.cargo }}</td>
+
+            <td>{{ empleado.salario | currency: 'COP ' : 'symbol' : '1.0-0' }}</td>
+
+            <td>
+              <button class="edit" (click)="editarEmpleado(empleado)">
+                <i class="fas fa-pen"></i>
+              </button>
+
+              <button class="delete" (click)="eliminarEmpleado(empleado.id)">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot *ngIf="empleados.length === 0">
+          <tr>
+            <td colspan="6" style="text-align: center; padding: 30px">
+              No hay empleados registrados.
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </main>
+  <div class="modal" *ngIf="mostrarModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>{{ editando ? 'Editar Empleado' : 'Nuevo Empleado' }}</h2>
+
+        <button class="close" (click)="cerrarModal()">
+          <i class="fas fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="form-grid">
+        <input type="text" placeholder="Nombre" [(ngModel)]="nuevo.nombre" />
+
+        <input type="text" placeholder="Apellido" [(ngModel)]="nuevo.apellido" />
+
+        <input type="email" placeholder="Correo" [(ngModel)]="nuevo.correo" />
+
+        <input type="text" placeholder="Teléfono" [(ngModel)]="nuevo.telefono" />
+
+        <input type="text" placeholder="Cargo" [(ngModel)]="nuevo.cargo" />
+
+        <input type="number" placeholder="Salario" [(ngModel)]="nuevo.salario" />
+
+        <input type="date" [(ngModel)]="nuevo.fecha_ingreso" />
+      </div>
+
+      <div class="acciones">
+        <button class="cancelar" (click)="cerrarModal()">Cancelar</button>
+
+        <button class="guardar" (click)="guardarEmpleado()">
+          {{ editando ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
